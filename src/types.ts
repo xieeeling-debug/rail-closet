@@ -8,10 +8,22 @@ export interface ClosetItem {
   accent?: string
   fabric: string
   season: string
+  /** Data URL (PNG) after background removal, for user-uploaded pieces */
+  imageDataUrl?: string
+  /** True when the piece was added by the user on this device */
+  isCustom?: boolean
 }
 
 export const CATEGORIES: { id: Category | 'all'; label: string }[] = [
   { id: 'all', label: 'All' },
+  { id: 'tops', label: 'Tops' },
+  { id: 'bottoms', label: 'Bottoms' },
+  { id: 'outerwear', label: 'Outerwear' },
+  { id: 'shoes', label: 'Shoes' },
+  { id: 'accessories', label: 'Accessories' },
+]
+
+export const CATEGORY_OPTIONS: { id: Category; label: string }[] = [
   { id: 'tops', label: 'Tops' },
   { id: 'bottoms', label: 'Bottoms' },
   { id: 'outerwear', label: 'Outerwear' },

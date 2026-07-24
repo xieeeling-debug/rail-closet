@@ -451,6 +451,237 @@ a {
   color: var(--ink);
 }
 
+.section-head-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.hero-secondary {
+  color: var(--ink-soft);
+}
+
+.garment-wrap {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.garment-swatch.has-photo,
+.outfit-swatch.has-photo {
+  background:
+    linear-gradient(45deg, #eceff3 25%, transparent 25%),
+    linear-gradient(-45deg, #eceff3 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #eceff3 75%),
+    linear-gradient(-45deg, transparent 75%, #eceff3 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  background-color: #f7f8fa;
+}
+
+.garment-photo,
+.outfit-photo {
+  width: 86%;
+  height: 86%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 14px rgba(20, 24, 31, 0.12));
+}
+
+.outfit-photo {
+  width: 90%;
+  height: 90%;
+}
+
+.garment-delete {
+  border: 0;
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  justify-self: start;
+  padding: 0.15rem 0.75rem;
+}
+
+.garment-delete:hover {
+  color: var(--ink);
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.add-cta {
+  border: 0;
+  cursor: pointer;
+}
+
+.add-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: end center;
+  padding: 1rem;
+  background: rgba(20, 24, 31, 0.45);
+  backdrop-filter: blur(4px);
+  animation: rise 280ms ease both;
+}
+
+.add-sheet {
+  width: min(100%, 420px);
+  max-height: min(92vh, 720px);
+  overflow: auto;
+  background: #f4f7fa;
+  border-radius: 22px 22px 18px 18px;
+  padding: 1.25rem 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.add-sheet-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-sheet-head h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  letter-spacing: -0.03em;
+}
+
+.add-steps {
+  margin: 1rem 0 1.25rem;
+  padding-left: 1.2rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  font-size: 0.92rem;
+}
+
+.add-pick,
+.add-processing,
+.add-error,
+.add-review {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.upload-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 1.2rem;
+  border-radius: 999px;
+  background: var(--ink);
+  color: #f4f7fa;
+  cursor: pointer;
+  text-align: center;
+}
+
+.add-hint,
+.add-processing p,
+.add-error p {
+  margin: 0;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  font-size: 0.9rem;
+}
+
+.spinner {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 3px solid rgba(20, 24, 31, 0.12);
+  border-top-color: var(--jade);
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.cutout-frame {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  background:
+    linear-gradient(45deg, #e5e9ee 25%, transparent 25%),
+    linear-gradient(-45deg, #e5e9ee 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e5e9ee 75%),
+    linear-gradient(-45deg, transparent 75%, #e5e9ee 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.cutout-frame img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+}
+
+.field {
+  display: grid;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.75rem 0.85rem;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+.add-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.add-actions .cta {
+  border: 0;
+  cursor: pointer;
+}
+
+.add-actions .cta:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (min-width: 720px) {
+  .add-modal {
+    place-items: center;
+  }
+
+  .add-sheet {
+    border-radius: 22px;
+  }
+}
+
 @media (max-width: 900px) {
   .stage {
     grid-template-columns: 1fr;

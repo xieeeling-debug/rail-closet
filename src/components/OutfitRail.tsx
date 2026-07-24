@@ -1,6 +1,6 @@
 import type { ClosetItem } from '../types'
 import { CATEGORY_ORDER } from '../types'
-import { GarmentArt } from './GarmentArt'
+import { GarmentVisual } from './GarmentVisual'
 
 interface OutfitRailProps {
   selected: ClosetItem[]
@@ -42,11 +42,15 @@ export function OutfitRail({ selected, onRemove, onClear }: OutfitRailProps) {
               style={{ animationDelay: `${index * 60}ms` }}
             >
               <span
-                className="outfit-swatch"
-                style={{ background: item.color }}
+                className={`outfit-swatch${item.imageDataUrl ? ' has-photo' : ''}`}
+                style={{ background: item.imageDataUrl ? '#f4f6f8' : item.color }}
                 aria-hidden
               >
-                <GarmentArt item={item} className="outfit-art" />
+                <GarmentVisual
+                  item={item}
+                  artClassName="outfit-art"
+                  photoClassName="outfit-photo"
+                />
               </span>
               <span className="outfit-meta">
                 <span className="outfit-name">{item.name}</span>
