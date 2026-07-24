@@ -1,0 +1,17 @@
+{
+  "name": "RAIL Closet",
+  "short_name": "RAIL",
+  "description": "Browse your closet and select clothes for today’s outfit.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#dfe5ec",
+  "theme_color": "#dfe5ec",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
