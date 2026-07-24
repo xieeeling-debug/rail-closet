@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice — Filter List</title>
+    <style>
+      body {
+        font-family: Georgia, serif;
+        max-width: 40rem;
+        margin: 2rem auto;
+        padding: 0 1rem;
+        background: #f7f2e8;
+        color: #14201b;
+      }
+      button {
+        margin-right: 0.35rem;
+        margin-bottom: 0.5rem;
+      }
+      .row {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin: 1rem 0;
+      }
+      input,
+      select {
+        padding: 0.4rem;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Closet filter practice</h1>
+    <div>
+      <button data-filter="all">All</button>
+      <button data-filter="top">Tops</button>
+      <button data-filter="bottom">Bottoms</button>
+    </div>
+    <div class="row">
+      <select id="type">
+        <option value="top">top</option>
+        <option value="bottom">bottom</option>
+      </select>
+      <input id="color" placeholder="color" />
+      <button id="add">Add</button>
+    </div>
+    <ul id="list"></ul>
+    <script src="filter.js"></script>
+  </body>
+</html>
