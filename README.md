@@ -1,38 +1,32 @@
 # RAIL — Closet App
 
-Browse clothes in your closet, select pieces, and hang them on today’s outfit rail.
+Upload your clothes, tag them, filter, and pair a top with a bottom.
 
-## Open on phone / tablet (no install)
+## Open on phone / tablet
 
 **https://xieeeling-debug.github.io/rail-closet/**
 
-Tap that link on iPhone or iPad — it opens in Safari. No download or setup.
+## How to use
 
-## Add your own clothes (photo + background removal)
+### 1. Remove examples
+Sample clothes are gone. The closet starts empty with only what you upload.
 
-1. Open the app link above
-2. Tap **Add my clothes**
-3. Choose or take a photo of **one** clothing item
-4. Wait while the app removes the background (first time can take a minute)
-5. Name it, pick a category, tap **Save to closet**
+### 2. Add & categorize a piece
+1. Tap **Add my clothes**
+2. Take/choose a photo (background is removed on your device)
+3. Set **Type** (Tops, Bottoms, …), **Color**, and **Material**
+4. Save
 
-Photos stay on your device. Background removal runs in the browser — nothing is uploaded to a server.
+### 3. Filter
+Use the **Type**, **Color**, and **Material** filter rows to narrow your closet.
 
-## Features
+### 4. Pair top + bottom
+1. Tap one **top**
+2. Tap one **bottom**
+3. The pairing preview shows both images stacked together on the outfit rail
 
-- Upload your clothes with automatic background removal
-- Sample closet pieces to try the app immediately
-- Category filters
-- Tap to select / deselect garments for today’s outfit
-- Selections and uploads persist on this device
+Choosing another top or bottom replaces the previous one of that type.
 
-## Source code
+## Source
 
-Repository: https://github.com/xieeeling-debug/rail-closet
-
-## Run locally (optional)
-
-```bash
-npm install
-npm run dev
-```
+https://github.com/xieeeling-debug/rail-closet

@@ -4,14 +4,23 @@ import { GarmentVisual } from './GarmentVisual'
 
 interface OutfitRailProps {
   selected: ClosetItem[]
+  selectedTop: ClosetItem | null
+  selectedBottom: ClosetItem | null
   onRemove: (id: string) => void
   onClear: () => void
 }
 
-export function OutfitRail({ selected, onRemove, onClear }: OutfitRailProps) {
+export function OutfitRail({
+  selected,
+  selectedTop,
+  selectedBottom,
+  onRemove,
+  onClear,
+}: OutfitRailProps) {
   const ordered = [...selected].sort(
     (a, b) => CATEGORY_ORDER.indexOf(a.category) - CATEGORY_ORDER.indexOf(b.category),
   )
+  const hasPair = Boolean(selectedTop && selectedBottom)
 
   return (
     <aside className="outfit" aria-labelledby="outfit-heading">
@@ -29,9 +38,42 @@ export function OutfitRail({ selected, onRemove, onClear }: OutfitRailProps) {
         )}
       </div>
 
+      <div className="pair-stage" aria-live="polite">
+        <p className="pair-label">Top + bottom pairing</p>
+        {hasPair ? (
+          <div className="pair-stack">
+            <div className="pair-slot">
+              <GarmentVisual
+                item={selectedTop!}
+                artClassName="pair-art"
+                photoClassName="pair-photo"
+              />
+            </div>
+            <div className="pair-slot">
+              <GarmentVisual
+                item={selectedBottom!}
+                artClassName="pair-art"
+                photoClassName="pair-photo"
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="pair-empty">
+            <div className="pair-ghost">Top</div>
+            <div className="pair-ghost">Bottom</div>
+            <p>Select one top and one bottom to see them paired here.</p>
+          </div>
+        )}
+        {hasPair && (
+          <p className="pair-caption">
+            {selectedTop!.name} + {selectedBottom!.name}
+          </p>
+        )}
+      </div>
+
       {ordered.length === 0 ? (
         <div className="outfit-empty">
-          <p>Select clothes from your closet to hang them here.</p>
+          <p>Tap clothes in your closet. One piece per type stays on the rail.</p>
         </div>
       ) : (
         <ul className="outfit-list">
@@ -54,7 +96,9 @@ export function OutfitRail({ selected, onRemove, onClear }: OutfitRailProps) {
               </span>
               <span className="outfit-meta">
                 <span className="outfit-name">{item.name}</span>
-                <span className="outfit-cat">{item.category}</span>
+                <span className="outfit-cat">
+                  {item.category} · {item.colorName} · {item.material}
+                </span>
               </span>
               <button
                 type="button"

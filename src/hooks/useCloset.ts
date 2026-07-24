@@ -1,11 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
-import { CLOSET } from '../data/closet'
 import {
   deleteCustomPiece,
   loadCustomPieces,
   saveCustomPiece,
 } from '../lib/customClosetDb'
-import type { ClosetItem } from '../types'
+import { normalizePiece, type ClosetItem } from '../types'
 
 export function useCloset() {
   const [custom, setCustom] = useState<ClosetItem[]>([])
@@ -15,7 +14,7 @@ export function useCloset() {
     let cancelled = false
     loadCustomPieces<ClosetItem>()
       .then((pieces) => {
-        if (!cancelled) setCustom(pieces)
+        if (!cancelled) setCustom(pieces.map(normalizePiece))
       })
       .catch(() => {
         if (!cancelled) setCustom([])
@@ -28,11 +27,13 @@ export function useCloset() {
     }
   }, [])
 
-  const items = useMemo(() => [...custom, ...CLOSET], [custom])
+  // Only the user's uploaded clothes — sample examples removed.
+  const items = useMemo(() => custom, [custom])
 
   async function addPiece(piece: ClosetItem) {
-    await saveCustomPiece(piece)
-    setCustom((prev) => [piece, ...prev.filter((p) => p.id !== piece.id)])
+    const normalized = normalizePiece(piece)
+    await saveCustomPiece(normalized)
+    setCustom((prev) => [normalized, ...prev.filter((p) => p.id !== normalized.id)])
   }
 
   async function removePiece(id: string) {
@@ -40,5 +41,11 @@ export function useCloset() {
     setCustom((prev) => prev.filter((p) => p.id !== id))
   }
 
-  return { items, customCount: custom.length, ready, addPiece, removePiece }
+  return {
+    items,
+    customCount: custom.length,
+    ready,
+    addPiece,
+    removePiece,
+  }
 }

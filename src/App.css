@@ -205,7 +205,20 @@ a {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem;
-  margin: 1.4rem 0 1.6rem;
+  margin: 0 0 0.85rem;
+}
+
+.filter-block {
+  margin-top: 0.85rem;
+}
+
+.filter-label {
+  margin: 0 0 0.45rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jade);
+  font-weight: 600;
 }
 
 .filter-btn {
@@ -216,6 +229,9 @@ a {
   border-radius: 999px;
   cursor: pointer;
   transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
 .filter-btn:hover {
@@ -227,6 +243,109 @@ a {
   background: var(--ink);
   border-color: var(--ink);
   color: #f4f7fa;
+}
+
+.color-dot {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 50%;
+  border: 1px solid rgba(20, 24, 31, 0.2);
+  flex-shrink: 0;
+}
+
+.filter-btn.is-active .color-dot {
+  border-color: rgba(255, 255, 255, 0.45);
+}
+
+.closet-empty {
+  margin: 1.25rem 0 0;
+  padding: 1.25rem 0.25rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.closet-empty p {
+  margin: 0 0 0.75rem;
+}
+
+.pair-stage {
+  margin-top: 1.15rem;
+  padding: 0.95rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.pair-label {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--jade);
+  font-weight: 600;
+}
+
+.pair-stack {
+  display: grid;
+  gap: 0.35rem;
+  justify-items: center;
+  min-height: 240px;
+  padding: 0.5rem 0;
+  background:
+    linear-gradient(45deg, #e8ecf1 25%, transparent 25%),
+    linear-gradient(-45deg, #e8ecf1 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #e8ecf1 75%),
+    linear-gradient(-45deg, transparent 75%, #e8ecf1 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+  background-color: #f7f9fb;
+  border-radius: 14px;
+}
+
+.pair-slot {
+  width: min(70%, 180px);
+  aspect-ratio: 1 / 0.85;
+  display: grid;
+  place-items: center;
+}
+
+.pair-photo,
+.pair-art {
+  width: 92%;
+  height: 92%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(20, 24, 31, 0.14));
+}
+
+.pair-empty {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: stretch;
+}
+
+.pair-ghost {
+  border: 1px dashed var(--line);
+  border-radius: 12px;
+  min-height: 72px;
+  display: grid;
+  place-items: center;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.pair-empty p,
+.pair-caption {
+  margin: 0.35rem 0 0;
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.pair-caption {
+  font-weight: 500;
+  color: var(--ink);
 }
 
 .garment-grid {

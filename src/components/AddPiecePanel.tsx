@@ -1,8 +1,13 @@
 import { useId, useRef, useState } from 'react'
 import { removeBackground } from '@imgly/background-removal'
-import { blobToDataUrl, resizeImageFile, sampleDominantColor } from '../lib/imageUtils'
-import type { Category, ClosetItem } from '../types'
-import { CATEGORY_OPTIONS } from '../types'
+import { blobToDataUrl, resizeImageFile } from '../lib/imageUtils'
+import type { Category, ClosetItem, ColorName, Material } from '../types'
+import {
+  CATEGORY_OPTIONS,
+  COLOR_OPTIONS,
+  MATERIAL_OPTIONS,
+  hexForColorName,
+} from '../types'
 
 interface AddPiecePanelProps {
   onAdd: (piece: ClosetItem) => Promise<void>
@@ -19,6 +24,8 @@ export function AddPiecePanel({ onAdd }: AddPiecePanelProps) {
   const [preview, setPreview] = useState<string | null>(null)
   const [name, setName] = useState('')
   const [category, setCategory] = useState<Category>('tops')
+  const [colorName, setColorName] = useState<ColorName>('Black')
+  const [material, setMaterial] = useState<Material>('Cotton')
   const [error, setError] = useState<string | null>(null)
 
   function reset() {
@@ -27,6 +34,8 @@ export function AddPiecePanel({ onAdd }: AddPiecePanelProps) {
     setPreview(null)
     setName('')
     setCategory('tops')
+    setColorName('Black')
+    setMaterial('Cotton')
     setError(null)
     if (fileRef.current) fileRef.current.value = ''
   }
@@ -79,15 +88,15 @@ export function AddPiecePanel({ onAdd }: AddPiecePanelProps) {
     if (!preview) return
     setStage('saving')
     try {
-      const color = await sampleDominantColor(preview)
+      const hex = hexForColorName(colorName)
       const piece: ClosetItem = {
         id: `custom-${crypto.randomUUID()}`,
         name: name.trim() || 'My piece',
         category,
-        color,
-        accent: color,
-        fabric: 'Your photo',
-        season: 'All',
+        color: hex,
+        accent: hex,
+        colorName,
+        material,
         imageDataUrl: preview,
         isCustom: true,
       }
@@ -124,9 +133,9 @@ export function AddPiecePanel({ onAdd }: AddPiecePanelProps) {
             </div>
 
             <ol className="add-steps">
-              <li>Take or upload a photo of one clothing item</li>
-              <li>We remove the background on your phone</li>
-              <li>Name it, pick a category, save to your closet</li>
+              <li>Photo one clothing item</li>
+              <li>Background is removed on your device</li>
+              <li>Tag type, color, and material — then save</li>
             </ol>
 
             {stage === 'pick' && (
@@ -172,12 +181,38 @@ export function AddPiecePanel({ onAdd }: AddPiecePanelProps) {
                   />
                 </label>
                 <label className="field">
-                  <span>Category</span>
+                  <span>Type</span>
                   <select
                     value={category}
                     onChange={(e) => setCategory(e.target.value as Category)}
                   >
                     {CATEGORY_OPTIONS.map((opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="field">
+                  <span>Color</span>
+                  <select
+                    value={colorName}
+                    onChange={(e) => setColorName(e.target.value as ColorName)}
+                  >
+                    {COLOR_OPTIONS.map((opt) => (
+                      <option key={opt.id} value={opt.id}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="field">
+                  <span>Material</span>
+                  <select
+                    value={material}
+                    onChange={(e) => setMaterial(e.target.value as Material)}
+                  >
+                    {MATERIAL_OPTIONS.map((opt) => (
                       <option key={opt.id} value={opt.id}>
                         {opt.label}
                       </option>

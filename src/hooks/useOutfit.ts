@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { ClosetItem } from '../types'
 
 const STORAGE_KEY = 'rail-selected-outfit'
@@ -14,6 +14,10 @@ function readStoredIds(): string[] {
   }
 }
 
+/**
+ * Outfit selection: one piece per category.
+ * Choosing another top/bottom replaces the previous one in that category.
+ */
 export function useOutfit(closet: ClosetItem[]) {
   const [selectedIds, setSelectedIds] = useState<string[]>(() => readStoredIds())
 
@@ -21,14 +25,30 @@ export function useOutfit(closet: ClosetItem[]) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedIds))
   }, [selectedIds])
 
-  const selected = selectedIds
-    .map((id) => closet.find((item) => item.id === id))
-    .filter((item): item is ClosetItem => Boolean(item))
+  const selected = useMemo(
+    () =>
+      selectedIds
+        .map((id) => closet.find((item) => item.id === id))
+        .filter((item): item is ClosetItem => Boolean(item)),
+    [selectedIds, closet],
+  )
+
+  const selectedTop = selected.find((item) => item.category === 'tops') ?? null
+  const selectedBottom = selected.find((item) => item.category === 'bottoms') ?? null
 
   function toggle(id: string) {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-    )
+    const item = closet.find((piece) => piece.id === id)
+    if (!item) return
+
+    setSelectedIds((prev) => {
+      if (prev.includes(id)) return prev.filter((x) => x !== id)
+
+      const withoutSameCategory = prev.filter((existingId) => {
+        const existing = closet.find((piece) => piece.id === existingId)
+        return !existing || existing.category !== item.category
+      })
+      return [...withoutSameCategory, id]
+    })
   }
 
   function clear() {
@@ -39,5 +59,13 @@ export function useOutfit(closet: ClosetItem[]) {
     return selectedIds.includes(id)
   }
 
-  return { selected, selectedIds, toggle, clear, isSelected }
+  return {
+    selected,
+    selectedIds,
+    selectedTop,
+    selectedBottom,
+    toggle,
+    clear,
+    isSelected,
+  }
 }

@@ -4,13 +4,14 @@ import { ClosetGrid } from './components/ClosetGrid'
 import { OutfitRail } from './components/OutfitRail'
 import { useCloset } from './hooks/useCloset'
 import { useOutfit } from './hooks/useOutfit'
-import type { Category } from './types'
+import { DEFAULT_FILTERS, type ClosetFilters } from './types'
 import './App.css'
 
 function App() {
-  const [filter, setFilter] = useState<Category | 'all'>('all')
-  const { items, customCount, addPiece, removePiece } = useCloset()
-  const { selected, toggle, clear, isSelected } = useOutfit(items)
+  const [filters, setFilters] = useState<ClosetFilters>(DEFAULT_FILTERS)
+  const { items, ready, addPiece, removePiece } = useCloset()
+  const { selected, selectedTop, selectedBottom, toggle, clear, isSelected } =
+    useOutfit(items)
 
   return (
     <div className="app">
@@ -21,8 +22,8 @@ function App() {
           <p className="brand">RAIL</p>
           <h1>Dress from your closet.</h1>
           <p className="lede">
-            Upload photos of your clothes — we remove the background — then select
-            pieces for today’s look.
+            Upload your clothes, tag type, color, and material, then pair a top
+            and bottom to see the look together.
           </p>
           <div className="hero-actions">
             <a className="cta" href="#add-clothes">
@@ -32,8 +33,7 @@ function App() {
               Browse closet
             </a>
             <span className="hero-count">
-              {items.length} pieces
-              {customCount > 0 ? ` · ${customCount} yours` : ''}
+              {ready ? `${items.length} pieces in your closet` : 'Loading…'}
             </span>
           </div>
         </div>
@@ -42,11 +42,12 @@ function App() {
       <main className="stage" id="closet">
         <ClosetGrid
           items={items}
-          filter={filter}
-          onFilterChange={setFilter}
+          filters={filters}
+          onFiltersChange={setFilters}
           isSelected={isSelected}
           onToggle={toggle}
-          onDeleteCustom={(id) => {
+          ready={ready}
+          onDelete={(id) => {
             if (isSelected(id)) toggle(id)
             void removePiece(id)
           }}
@@ -56,12 +57,18 @@ function App() {
             </div>
           }
         />
-        <OutfitRail selected={selected} onRemove={toggle} onClear={clear} />
+        <OutfitRail
+          selected={selected}
+          selectedTop={selectedTop}
+          selectedBottom={selectedBottom}
+          onRemove={toggle}
+          onClear={clear}
+        />
       </main>
 
       <footer className="foot">
         <span>RAIL</span>
-        <span>Photos stay on this device. Background removal runs in your browser.</span>
+        <span>Your clothes only — photos stay on this device.</span>
       </footer>
     </div>
   )
