@@ -30,26 +30,3 @@ Choosing another top or bottom replaces the previous one of that type.
 ## Source
 
 https://github.com/xieeeling-debug/rail-closet
-
----
-
-## Software Engineer Learning Course (beginner → job-ready path)
-
-A full **offline-friendly** course for people with **no CS background**, covering:
-
-- Foundations & programmer thinking  
-- **Python**  
-- **Statistics** (with Python)  
-- **HTML / CSS / JavaScript** web development  
-- **App development** (including React concepts + studying this Closet app)  
-- Software engineering habits & career prep  
-
-### Open the course
-
-| Access | Where |
-|--------|--------|
-| **In this repo** | [`software-engineer-course/`](./software-engineer-course/) |
-| **Start here** | [`software-engineer-course/START_HERE.md`](./software-engineer-course/START_HERE.md) |
-| **Offline** | Download this repo ZIP (GitHub → Code → Download ZIP), then open the course folder on your computer |
-
-After downloading once, lessons, exercises, cheatsheets, and practice HTML/Python files work **without internet**.
