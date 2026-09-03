@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Character sprite animations</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #12141a;
+        --card: #1c2029;
+        --ink: #f4f1ea;
+        --muted: #9aa3b2;
+        --accent: #5b8cff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: radial-gradient(1200px 600px at 20% -10%, #243044 0%, var(--bg) 55%);
+        color: var(--ink);
+        min-height: 100vh;
+      }
+      main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 64px; }
+      h1 { margin: 0 0 8px; font-size: 1.6rem; }
+      p { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+      .controls {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 24px;
+      }
+      button {
+        appearance: none;
+        border: 1px solid #3a4252;
+        background: #252b36;
+        color: var(--ink);
+        border-radius: 999px;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      button[aria-pressed="true"] {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: #081018;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+      }
+      article {
+        background: var(--card);
+        border: 1px solid #2c3340;
+        border-radius: 16px;
+        padding: 16px;
+        text-align: center;
+      }
+      article h2 {
+        margin: 0 0 12px;
+        font-size: 0.95rem;
+        font-weight: 650;
+      }
+      .stage {
+        height: 220px;
+        display: grid;
+        place-items: center;
+        background:
+          linear-gradient(45deg, #2a303c 25%, transparent 25%) 0 0 / 16px 16px,
+          linear-gradient(45deg, transparent 75%, #2a303c 75%) 0 0 / 16px 16px,
+          linear-gradient(45deg, transparent 75%, #2a303c 75%) 8px 8px / 16px 16px,
+          linear-gradient(45deg, #2a303c 25%, transparent 25%) 8px 8px / 16px 16px,
+          #222833;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+      .sprite {
+        width: calc(1536px / 5);
+        height: calc(1024px / 3);
+        transform: scale(0.62);
+        transform-origin: center;
+        image-rendering: auto;
+        background-repeat: no-repeat;
+        background-size: 1536px 1024px;
+        animation: play 0.7s steps(5) infinite;
+      }
+      .sprite.idle { animation-duration: 1.4s; }
+      .sprite.walk { animation-duration: 0.7s; }
+      .sprite.run { animation-duration: 0.45s; }
+      @keyframes play {
+        from { background-position-x: 0; }
+        to { background-position-x: -1536px; }
+      }
+      details { margin-top: 28px; }
+      details img { width: 100%; height: auto; border-radius: 12px; background: #1a1f28; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>7 character sprite sheets</h1>
+      <p>
+        Body, limbs, and idle / walk / run poses follow the side-view sheet.
+        Faces and accessories follow the 7 character stickers. Each sheet is
+        1536×1024, 5 columns × 3 rows.
+      </p>
+      <div class="controls" role="group" aria-label="Animation">
+        <button type="button" data-anim="idle">Idle</button>
+        <button type="button" data-anim="walk" aria-pressed="true">Walk</button>
+        <button type="button" data-anim="run">Run</button>
+      </div>
+      <section class="grid" id="chars"></section>
+      <details>
+        <summary>Open full sprite sheets</summary>
+        <p id="sheets"></p>
+      </details>
+    </main>
+    <script>
+      const CHARACTERS = [
+        { file: "sprite-01-blue-cap.png", name: "Blue cap" },
+        { file: "sprite-02-trapper-hat.png", name: "Trapper hat" },
+        { file: "sprite-03-yellow-hat.png", name: "Yellow hat" },
+        { file: "sprite-04-purple-mark.png", name: "Purple star" },
+        { file: "sprite-05-goggles.png", name: "Goggles" },
+        { file: "sprite-06-chenle-headband.png", name: "Chenle headband" },
+        { file: "sprite-07-blue-beanie.png", name: "Blue beanie" },
+      ];
+      const ROW = { idle: "0px", walk: "calc(-1024px / 3)", run: "calc(-2048px / 3)" };
+      const chars = document.getElementById("chars");
+      const sheets = document.getElementById("sheets");
+
+      CHARACTERS.forEach((c) => {
+        const article = document.createElement("article");
+        article.innerHTML = `<h2>${c.name}</h2><div class="stage"><div class="sprite walk" style="background-image:url('${c.file}');background-position-y:${ROW.walk}"></div></div>`;
+        chars.appendChild(article);
+        const img = document.createElement("img");
+        img.src = c.file;
+        img.alt = c.name + " sprite sheet";
+        sheets.appendChild(img);
+      });
+
+      document.querySelectorAll("[data-anim]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const anim = btn.dataset.anim;
+          document.querySelectorAll("[data-anim]").forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+          document.querySelectorAll(".sprite").forEach((el) => {
+            el.className = "sprite " + anim;
+            el.style.backgroundPositionY = ROW[anim];
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
