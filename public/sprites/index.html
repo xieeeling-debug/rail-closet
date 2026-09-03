@@ -92,6 +92,14 @@
         from { background-position-x: 0; }
         to { background-position-x: -1536px; }
       }
+      .music {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin: -8px 0 24px;
+      }
+      .music span { color: var(--muted); font-size: 0.9rem; }
       details { margin-top: 28px; }
       details img { width: 100%; height: auto; border-radius: 12px; background: #1a1f28; }
     </style>
@@ -104,6 +112,11 @@
         to each character (cap, hat, goggles, headband, beanie). Each sheet is
         1536×1024, 5 columns × 3 rows.
       </p>
+      <div class="music">
+        <button type="button" id="music-toggle">Play 8-bit theme</button>
+        <span>Original overworld loop · NES-style pulse, triangle, and drums</span>
+        <audio id="theme" src="overworld-theme.mp3" loop preload="auto"></audio>
+      </div>
       <div class="controls" role="group" aria-label="Animation">
         <button type="button" data-anim="idle">Idle</button>
         <button type="button" data-anim="walk" aria-pressed="true">Walk</button>
@@ -148,6 +161,20 @@
             el.style.backgroundPositionY = ROW[anim];
           });
         });
+      });
+
+      const theme = document.getElementById("theme");
+      const musicToggle = document.getElementById("music-toggle");
+      musicToggle.addEventListener("click", async () => {
+        if (theme.paused) {
+          await theme.play();
+          musicToggle.setAttribute("aria-pressed", "true");
+          musicToggle.textContent = "Pause 8-bit theme";
+        } else {
+          theme.pause();
+          musicToggle.setAttribute("aria-pressed", "false");
+          musicToggle.textContent = "Play 8-bit theme";
+        }
       });
     </script>
   </body>
