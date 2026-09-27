@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meet Jessie Studio — TED Intro Preview</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Outfit:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0908;
+        --spot: #e8b86d;
+        --cream: #f5e6c8;
+        --mute: #9a8b78;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(ellipse 80% 55% at 50% 35%, #2a1f14 0%, transparent 55%),
+          radial-gradient(ellipse 100% 80% at 50% 100%, #120e0b 0%, var(--bg) 70%);
+        color: var(--cream);
+        font-family: Outfit, sans-serif;
+        display: grid;
+        place-items: center;
+        padding: 2rem 1rem 3rem;
+      }
+      .shell {
+        width: min(960px, 100%);
+      }
+      h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 5vw, 3.25rem);
+        letter-spacing: 0.02em;
+        margin: 0 0 0.35rem;
+        text-align: center;
+      }
+      .sub {
+        text-align: center;
+        color: var(--mute);
+        font-weight: 300;
+        margin: 0 0 1.75rem;
+        font-size: 0.98rem;
+      }
+      .stage {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        border-radius: 4px;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 0 0 1px rgba(232, 184, 109, 0.18), 0 30px 80px rgba(0, 0, 0, 0.55);
+      }
+      video {
+        width: 100%;
+        height: 100%;
+        display: block;
+        object-fit: cover;
+        background: #000;
+      }
+      .controls {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: center;
+        margin-top: 1.25rem;
+        flex-wrap: wrap;
+      }
+      button,
+      a.btn {
+        appearance: none;
+        border: 1px solid rgba(232, 184, 109, 0.45);
+        background: rgba(232, 184, 109, 0.08);
+        color: var(--cream);
+        font: inherit;
+        font-size: 0.92rem;
+        padding: 0.7rem 1.2rem;
+        border-radius: 999px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+      }
+      button:hover,
+      a.btn:hover {
+        background: rgba(232, 184, 109, 0.18);
+        border-color: var(--spot);
+        transform: translateY(-1px);
+      }
+      .meta {
+        margin-top: 1.75rem;
+        color: var(--mute);
+        font-size: 0.88rem;
+        line-height: 1.55;
+        text-align: center;
+      }
+      .beats {
+        margin-top: 1.5rem;
+        display: grid;
+        gap: 0.55rem;
+        font-size: 0.82rem;
+        color: var(--mute);
+      }
+      .beat {
+        display: grid;
+        grid-template-columns: 5.5rem 1fr;
+        gap: 0.75rem;
+        padding: 0.45rem 0;
+        border-bottom: 1px solid rgba(245, 230, 200, 0.08);
+      }
+      .beat strong {
+        color: var(--spot);
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <h1>Meet Jessie Studio</h1>
+      <p class="sub">TED-talk style channel intro — faceless silhouette interview</p>
+      <div class="stage">
+        <video id="player" controls playsinline preload="metadata" poster="assets/stage-two-shot.png">
+          <source src="output/meet-jessie-studio.mp4" type="video/mp4" />
+        </video>
+      </div>
+      <div class="controls">
+        <button type="button" id="play">Play from start</button>
+        <a class="btn" href="output/meet-jessie-studio.mp4" download>Download MP4</a>
+      </div>
+      <p class="meta">
+        Placeholder TTS voices stand in for Jessie + interviewer. Swap in your own
+        takes under <code>audio/</code> and re-run <code>npm run build:video</code>.
+      </p>
+      <div class="beats" aria-label="Scene beats">
+        <div class="beat"><strong>Cold open</strong><span>Shadowed figure, interviewer invites her into the light</span></div>
+        <div class="beat"><strong>Intro</strong><span>Hands / silhouette — “this is Jessie Studio”</span></div>
+        <div class="beat"><strong>Day job</strong><span>Big Four desk B-roll contrast</span></div>
+        <div class="beat"><strong>Abroad</strong><span>World map + timezone backdrop</span></div>
+        <div class="beat"><strong>INTJ</strong><span>Brain doodle → planner gag</span></div>
+        <div class="beat"><strong>Core</strong><span>Doomscrolling phone — emotional center + linger</span></div>
+        <div class="beat"><strong>Plan</strong><span>Soldering / code / sketch B-roll</span></div>
+        <div class="beat"><strong>Close</strong><span>Follow &amp; subscribe → empty stools outro</span></div>
+      </div>
+    </div>
+    <script>
+      const v = document.getElementById("player");
+      document.getElementById("play").addEventListener("click", async () => {
+        v.currentTime = 0;
+        await v.play();
+      });
+    </script>
+  </body>
+</html>

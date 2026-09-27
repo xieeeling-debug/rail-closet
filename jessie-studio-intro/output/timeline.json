@@ -1,0 +1,117 @@
+{
+  "output": "/workspace/jessie-studio-intro/output/meet-jessie-studio.mp4",
+  "duration_sec": 187.433333,
+  "scenes": [
+    {
+      "id": "cold",
+      "image": "cold-open.png",
+      "dur": 8.0
+    },
+    {
+      "id": "seats",
+      "image": "stage-two-shot.png",
+      "dur": 4.0
+    },
+    {
+      "id": "title",
+      "image": "title-card.png",
+      "dur": 3.0
+    },
+    {
+      "id": "q1",
+      "image": "stage-two-shot.png",
+      "dur": 3.762
+    },
+    {
+      "id": "a1",
+      "image": "hands-closeup.png",
+      "dur": 13.332
+    },
+    {
+      "id": "q2",
+      "image": "ots-interviewer.png",
+      "dur": 3.162
+    },
+    {
+      "id": "a2a",
+      "image": "big-four-desk.png",
+      "dur": 6.547
+    },
+    {
+      "id": "a2b",
+      "image": "stage-two-shot.png",
+      "dur": 6.257
+    },
+    {
+      "id": "q3",
+      "image": "ots-interviewer.png",
+      "dur": 3.138
+    },
+    {
+      "id": "a3",
+      "image": "world-map-backdrop.png",
+      "dur": 11.196
+    },
+    {
+      "id": "q4",
+      "image": "stage-two-shot.png",
+      "dur": 5.442
+    },
+    {
+      "id": "a4a",
+      "image": "brain-doodle.png",
+      "dur": 6.877
+    },
+    {
+      "id": "a4b",
+      "image": "planner-gag.png",
+      "dur": 6.527
+    },
+    {
+      "id": "q5",
+      "image": "ots-interviewer.png",
+      "dur": 4.986
+    },
+    {
+      "id": "a5a",
+      "image": "doomscroll-phone.png",
+      "dur": 23.621
+    },
+    {
+      "id": "a5b",
+      "image": "stage-two-shot.png",
+      "dur": 11.023
+    },
+    {
+      "id": "linger",
+      "image": "doomscroll-phone.png",
+      "dur": 5.0
+    },
+    {
+      "id": "q6",
+      "image": "stage-two-shot.png",
+      "dur": 3.162
+    },
+    {
+      "id": "a6",
+      "image": "build-broll.png",
+      "dur": 29.052
+    },
+    {
+      "id": "q7",
+      "image": "stage-two-shot.png",
+      "dur": 5.322
+    },
+    {
+      "id": "a7",
+      "image": "follow-subscribe.png",
+      "dur": 17.964
+    },
+    {
+      "id": "outro",
+      "image": "outro-empty.png",
+      "dur": 6.0
+    }
+  ],
+  "total_planned_sec": 187.37
+}

@@ -1,0 +1,4 @@
+# Build intermediates
+frames/
+__pycache__/
+*.pyc
