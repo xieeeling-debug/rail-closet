@@ -69,14 +69,16 @@ def make_clip(
     ]
     if vignette:
         vf_parts.append("vignette=PI/5")
+    text_inputs: list[str] = []
     if question:
-        wrapped = "\\n".join(textwrap.wrap(question, width=42))
-        q = esc_drawtext(wrapped)
+        wrapped = "\n".join(textwrap.wrap(question, width=42))
+        qfile = out.with_suffix(".question.txt")
+        qfile.write_text(wrapped, encoding="utf-8")
         vf_parts.append(
             "drawbox=x=80:y=h-220:w=min(iw-160\\,1200):h=140:color=black@0.55:t=fill"
         )
         vf_parts.append(
-            f"drawtext=fontfile={FONT}:text='{q}':fontcolor=0xF5E6C8:fontsize=36:"
+            f"drawtext=fontfile={FONT}:textfile={qfile}:fontcolor=0xF5E6C8:fontsize=36:"
             f"x=110:y=h-190:line_spacing=12"
         )
     if label:
